@@ -18,17 +18,8 @@ app = Flask(__name__)
 #環境変数の呼び出し
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
-# print(os.environ)
-#print(YOUR_CHANNEL_ACCESS_TOKEN)
 
-# YOUR_CHANNEL_ACCESS_TOKEN = os.environ.get("YOUR_CHANNEL_ACCESS_TOKEN")
-# YOUR_CHANNEL_SECRET = os.environ.get("YOUR_CHANNEL_SECRET")
-#print(YOUR_CHANNEL_ACCESS_TOKEN)
-# YOUR_CHANNEL_ACCESS_TOKEN = os.getenv("YOUR_CHANNEL_ACCESS_TOKEN")
-# YOUR_CHANNEL_SECRET = os.getenv("YOUR_CHANNEL_SECRET")
-
-# # print(os.environ)
-# print(YOUR_CHANNEL_ACCESS_TOKEN)
+print(YOUR_CHANNEL_ACCESS_TOKEN)
 # print(YOUR_CHANNEL_SECRET)
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
@@ -70,4 +61,5 @@ def handle_message(event):
 if __name__ == "__main__":
     # port = int(os.getenv("PORT", 8080))
     # app.run(host="0.0.0.0", port=port)
-    app.run(port=os.environ.get('PORT', 8080))
+    # app.run(port=os.environ.get('PORT', 8080))
+    app.run()
