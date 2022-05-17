@@ -1,6 +1,6 @@
 from flask import Flask, request, abort
 import os
-import random
+# import random
 """
 # from dotenv import load_dotenv
 # load_dotenv()
@@ -8,11 +8,13 @@ import random
 from linebot import (
     LineBotApi, WebhookHandler
 )
+print()
 from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    # MessageEvent, TextMessage, TextSendMessage
+    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage
 )
 
 app = Flask(__name__)
@@ -20,9 +22,6 @@ app = Flask(__name__)
 #環境変数の呼び出し
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
-
-# print(YOUR_CHANNEL_ACCESS_TOKEN)
-# # print(YOUR_CHANNEL_SECRET)
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
@@ -50,28 +49,35 @@ def callback():
     return 'OK'
 
 
-@handler.add(MessageEvent, message=TextMessage)
+#@handler.add(MessageEvent, message=TextMessage)
+@handler.add(MessageEvent, message=StickerMessage)
 
 # def handle_message(event):
 #     line_bot_api.reply_message(
 #         event.reply_token,
 #         TextSendMessage(text=event.message.text))
 
+
+# def handle_message(event):
+
+# reply comment
+# comment_list = [
+#         "Hello, I'm Kumanosuke!", 
+#         "Have you eaten Cannelette? You should! https://www.uha-mikakuto.co.jp/catalog/other/ot002.html",
+#         "aaaaa~~~~~",
+#         "nemui...",
+#         "bunny ear!()()",
+#         "Kuma! Kuma! Kuma~~~~! https://www.youtube.com/watch?v=A_UdprUxEZw",
+#         "Bonjour!",
+#         "coffee or tea?"
+#     ]
+# index = random.randint(0, 6)
+
 def handle_message(event):
-    comment_list = [
-        "Hello, I'm Kumanosuke!", 
-        "Have you eaten Cannelette? You should! https://www.uha-mikakuto.co.jp/catalog/other/ot002.html",
-        "aaaaa~~~~~",
-        "nemui...",
-        "bunny ear!()()",
-        "Kuma! Kuma! Kuma~~~~! https://www.youtube.com/watch?v=A_UdprUxEZw",
-        "Bonjour!"
-    ]
-    index = random.randint(0, 6)
-    print(comment_list[1])
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=comment_list[index]))
+        StickerMessage(package_id=6325, sticker_id=10979909))
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
