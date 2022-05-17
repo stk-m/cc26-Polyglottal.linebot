@@ -1,5 +1,7 @@
 from flask import Flask, request, abort
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -14,11 +16,23 @@ from linebot.models import (
 app = Flask(__name__)
 
 #環境変数の呼び出し
-LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
+YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
+YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
+# print(os.environ)
+#print(YOUR_CHANNEL_ACCESS_TOKEN)
 
-line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(LINE_CHANNEL_SECRET)
+# YOUR_CHANNEL_ACCESS_TOKEN = os.environ.get("YOUR_CHANNEL_ACCESS_TOKEN")
+# YOUR_CHANNEL_SECRET = os.environ.get("YOUR_CHANNEL_SECRET")
+#print(YOUR_CHANNEL_ACCESS_TOKEN)
+# YOUR_CHANNEL_ACCESS_TOKEN = os.getenv("YOUR_CHANNEL_ACCESS_TOKEN")
+# YOUR_CHANNEL_SECRET = os.getenv("YOUR_CHANNEL_SECRET")
+
+# # print(os.environ)
+# print(YOUR_CHANNEL_ACCESS_TOKEN)
+# print(YOUR_CHANNEL_SECRET)
+
+line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 @app.route("/")
 def hello():
@@ -50,5 +64,9 @@ def handle_message(event):
         TextSendMessage(text=event.message.text))
 
 
+# if __name__ == "__main__":
+#     app.run(debug=True, port=8080)
+
 if __name__ == "__main__":
-    app.run()
+    port = int(os.getenv("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
