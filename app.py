@@ -57,6 +57,7 @@ def callback():
 #         event.reply_token,
 #         TextSendMessage(text=event.message.text))
 
+
 # def handle_message(event):
 
 # reply comment
@@ -73,6 +74,7 @@ def callback():
 # index = random.randint(0, 6)
 
 def handle_message(event):
+
     line_bot_api.reply_message(
         event.reply_token,
         StickerMessage(package_id=6325, sticker_id=10979909))
