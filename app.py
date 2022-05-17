@@ -12,6 +12,7 @@ from linebot.models import (
 )
 
 app = Flask(__name__)
+
 #環境変数の呼び出し
 LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
