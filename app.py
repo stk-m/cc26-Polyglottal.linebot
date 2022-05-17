@@ -66,9 +66,9 @@ def handle_message(event):
         "bunny ear!()()",
         "Kuma! Kuma! Kuma~~~~! https://www.youtube.com/watch?v=A_UdprUxEZw",
         "Bonjour!"
-]
+    ]
     index = random.randint(0, 6)
-
+    print(comment_list[1])
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=comment_list[index]))
