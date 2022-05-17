@@ -1,6 +1,6 @@
 from flask import Flask, request, abort
 import os
-# import random
+import random
 """
 # from dotenv import load_dotenv
 # load_dotenv()
@@ -73,11 +73,14 @@ def callback():
 #     ]
 # index = random.randint(0, 6)
 
-def handle_message(event):
-
+def handle_sticker_message(event):
+    sticker_id_list = [
+        10979904, 10979905, 10979907, 10979910, 10979923, 10979908, 10979926
+    ]
+    index = random.randint(0, 6)
     line_bot_api.reply_message(
         event.reply_token,
-        StickerMessage(package_id=6325, sticker_id=10979909))
+        StickerSendMessage(package_id=6325, sticker_id=sticker_id_list[index]))
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
