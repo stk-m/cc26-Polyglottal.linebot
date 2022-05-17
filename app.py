@@ -1,4 +1,5 @@
 from flask import Flask, request, abort
+import os
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -11,9 +12,12 @@ from linebot.models import (
 )
 
 app = Flask(__name__)
+#環境変数の呼び出し
+LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 
-line_bot_api = LineBotApi('YOUR_CHANNEL_ACCESS_TOKEN')
-handler = WebhookHandler('YOUR_CHANNEL_SECRET')
+line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 @app.route("/")
 def hello():
