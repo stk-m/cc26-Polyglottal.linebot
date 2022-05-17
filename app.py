@@ -50,37 +50,43 @@ def callback():
 
 
 #@handler.add(MessageEvent, message=TextMessage)
-@handler.add(MessageEvent, message=StickerMessage)
 
 # def handle_message(event):
 #     line_bot_api.reply_message(
 #         event.reply_token,
 #         TextSendMessage(text=event.message.text))
 
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    comment_list = [
+        "Hello, I'm Kumanosuke!", 
+        "Have you eaten Cannelétte? You should! https://www.uha-mikakuto.co.jp/catalog/other/ot002.html",
+        "aaaaa~~~~~",
+        "nemui...",
+        "bunny ear!()()",
+        "Kuma! Kuma! Kuma~~~~! https://www.youtube.com/watch?v=A_UdprUxEZw",
+        "Bonjour!",
+        "coffee or tea?", 
+        "Let's go home~~ https://www.youtube.com/watch?v=dUXeJTzSCjc"
+    ]
+    comment_index = random.randint(0, 8)
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=comment_list[comment_index])
+    )
 
-# def handle_message(event):
 
-# reply comment
-# comment_list = [
-#         "Hello, I'm Kumanosuke!", 
-#         "Have you eaten Cannelette? You should! https://www.uha-mikakuto.co.jp/catalog/other/ot002.html",
-#         "aaaaa~~~~~",
-#         "nemui...",
-#         "bunny ear!()()",
-#         "Kuma! Kuma! Kuma~~~~! https://www.youtube.com/watch?v=A_UdprUxEZw",
-#         "Bonjour!",
-#         "coffee or tea?"
-#     ]
-# index = random.randint(0, 6)
-
+@handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
     sticker_id_list = [
         10979904, 10979905, 10979907, 10979910, 10979923, 10979908, 10979926
     ]
-    index = random.randint(0, 6)
+    sticker_index = random.randint(0, 6)
+
     line_bot_api.reply_message(
         event.reply_token,
-        StickerSendMessage(package_id=6325, sticker_id=sticker_id_list[index]))
+        StickerSendMessage(package_id=6325, sticker_id=sticker_id_list[sticker_index])
+    )
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
