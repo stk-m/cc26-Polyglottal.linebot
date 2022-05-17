@@ -1,8 +1,10 @@
 from flask import Flask, request, abort
 import os
+import random
+"""
 # from dotenv import load_dotenv
 # load_dotenv()
-
+"""
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -19,15 +21,15 @@ app = Flask(__name__)
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
 
-print(YOUR_CHANNEL_ACCESS_TOKEN)
-# print(YOUR_CHANNEL_SECRET)
+# print(YOUR_CHANNEL_ACCESS_TOKEN)
+# # print(YOUR_CHANNEL_SECRET)
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 @app.route("/")
 def hello():
-    return "hello, world"
+    return "here is inside of kumanosuke"
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -49,17 +51,35 @@ def callback():
 
 
 @handler.add(MessageEvent, message=TextMessage)
+
+# def handle_message(event):
+#     line_bot_api.reply_message(
+#         event.reply_token,
+#         TextSendMessage(text=event.message.text))
+
 def handle_message(event):
+    comment_list = [
+        "Hello, I'm Kumanosuke!", 
+        "Have you eaten Cannelette? You should! https://www.uha-mikakuto.co.jp/catalog/other/ot002.html",
+        "aaaaa~~~~~",
+        "nemui...",
+        "bunny ear!()()",
+        "Kuma! Kuma! Kuma~~~~! https://www.youtube.com/watch?v=A_UdprUxEZw",
+        "Bonjour!"
+]
+    index = random.randint(0, 6)
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
-
+        TextSendMessage(text=comment_list[index]))
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=5000)
 
+"""
 # if __name__ == "__main__":
     # port = int(os.getenv("PORT", 8080))
     # app.run(host="0.0.0.0", port=port)
     # app.run(port=os.environ.get('PORT', 8080))
     # app.run()
+"""
