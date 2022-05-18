@@ -65,7 +65,7 @@ def callback():
 #         "aaaaa~~~~~",
 #         "nemui...",
 #         "bunny ear!()()",
-#         "Kuma! Kuma! Kuma~~~~! https://www.youtube.com/watch?v=A_UdprUxEZw",
+#         "Kuma! Kuma! Kuma~~~~!",
 #         "Bonjour!",
 #         "coffee or tea?", 
 #         "Let's go home~~ https://www.youtube.com/watch?v=dUXeJTzSCjc"
@@ -100,23 +100,28 @@ def handle_message(event):
                  alt_text='Buttons template',
                  template= ButtonsTemplate(
                      type="buttons",
-                     title='Menu',
-                     text='Please select',
+                     title='なにする？',
+                     text='push button!',
                      actions=[
                           {
-                            "type": "postback",
-                            "label": "Buy",
-                            "data": "action=buy&itemid=123"
+                            "type": "uri",
+                            "label": "Sing!",
+                            "uri": "https://www.youtube.com/watch?v=A_UdprUxEZw"
                           },
                         {
-                            "type": "postback",
-                            "label": "Add to cart",
-                            "data": "action=add&itemid=123"
+                            "type": "uri",
+                            "label": "Gaming!!",
+                            "uri": "https://games.wkb.jp/ykg/?game_id=jellybears"
                         },
                         {
                             "type": "uri",
-                            "label": "View detail",
-                            "uri": "http://example.com/page/123"
+                            "label": "radio taisoooooooo!",
+                            "uri": "https://www.youtube.com/watch?v=bjKexZvqQeg"
+                        },
+                                                {
+                            "type": "uri",
+                            "label": "Give me some friend?",
+                            "uri": "https://www.steiff-onlineshop.com/"
                         }
                     ]
                  )
