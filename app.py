@@ -78,21 +78,6 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # buttons_template_message = TemplateSendMessage(
-    # alt_text='Buttons template',
-    # template=ButtonsTemplate(
-    #     title='Menu',
-    #     text='Please select',
-    #     actions=[
-    #         PostbackAction(
-    #             label='postback',
-    #             display_text='postback text',
-    #             data='action=buy&itemid=1'
-    #         )
-    #     ]
-    # )
-    # )
-    
     if event.message.text == "あそぼ":
         line_bot_api.reply_message(
             event.reply_token,
@@ -101,7 +86,7 @@ def handle_message(event):
                  template= ButtonsTemplate(
                      type="buttons",
                      title='なにする？',
-                     text='push button!',
+                     text='えらんで！',
                      actions=[
                           {
                             "type": "uri",
@@ -127,6 +112,25 @@ def handle_message(event):
                  )
              )
         )
+    else:
+        comment_list = [
+        "I'm Kumanosuke!", 
+        "Have you eaten Cannelétte? You should! https://www.uha-mikakuto.co.jp/catalog/other/ot002.html",
+        "aaaaa~~~~~",
+        "nemui...",
+        "bunny ear!()()",
+        "Kuma! Kuma! Kuma~~~~!",
+        "Bonjour!",
+        "coffee or tea?", 
+        "Let's go home~~ https://www.youtube.com/watch?v=dUXeJTzSCjc",
+        "arigato--"
+        ]
+        comment_index = random.randint(0, 9)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=comment_list[comment_index])
+        )
+
 
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
