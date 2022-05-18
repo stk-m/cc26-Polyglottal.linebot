@@ -14,7 +14,8 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     # MessageEvent, TextMessage, TextSendMessage
-    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage
+    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage,
+    TemplateSendMessage, ButtonsTemplate, PostbackAction
 )
 
 app = Flask(__name__)
@@ -56,25 +57,71 @@ def callback():
 #         event.reply_token,
 #         TextSendMessage(text=event.message.text))
 
+# @handler.add(MessageEvent, message=TextMessage)
+# def handle_message(event):
+#     comment_list = [
+#         "Hello, I'm Kumanosuke!", 
+#         "Have you eaten Cannelétte? You should! https://www.uha-mikakuto.co.jp/catalog/other/ot002.html",
+#         "aaaaa~~~~~",
+#         "nemui...",
+#         "bunny ear!()()",
+#         "Kuma! Kuma! Kuma~~~~! https://www.youtube.com/watch?v=A_UdprUxEZw",
+#         "Bonjour!",
+#         "coffee or tea?", 
+#         "Let's go home~~ https://www.youtube.com/watch?v=dUXeJTzSCjc"
+#     ]
+#     comment_index = random.randint(0, 8)
+#     line_bot_api.reply_message(
+#         event.reply_token,
+#         TextSendMessage(text=comment_list[comment_index])
+#     )
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    comment_list = [
-        "Hello, I'm Kumanosuke!", 
-        "Have you eaten Cannelétte? You should! https://www.uha-mikakuto.co.jp/catalog/other/ot002.html",
-        "aaaaa~~~~~",
-        "nemui...",
-        "bunny ear!()()",
-        "Kuma! Kuma! Kuma~~~~! https://www.youtube.com/watch?v=A_UdprUxEZw",
-        "Bonjour!",
-        "coffee or tea?", 
-        "Let's go home~~ https://www.youtube.com/watch?v=dUXeJTzSCjc"
-    ]
-    comment_index = random.randint(0, 8)
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=comment_list[comment_index])
-    )
-
+    # buttons_template_message = TemplateSendMessage(
+    # alt_text='Buttons template',
+    # template=ButtonsTemplate(
+    #     title='Menu',
+    #     text='Please select',
+    #     actions=[
+    #         PostbackAction(
+    #             label='postback',
+    #             display_text='postback text',
+    #             data='action=buy&itemid=1'
+    #         )
+    #     ]
+    # )
+    # )
+    
+    if event.message.text == "あそぼ":
+        line_bot_api.reply_message(
+            event.reply_token,
+             TemplateSendMessage(
+                 alt_text='Buttons template',
+                 template= ButtonsTemplate(
+                     type="buttons",
+                     title='Menu',
+                     text='Please select',
+                     actions=[
+                          {
+                            "type": "postback",
+                            "label": "Buy",
+                            "data": "action=buy&itemid=123"
+                          },
+                        {
+                            "type": "postback",
+                            "label": "Add to cart",
+                            "data": "action=add&itemid=123"
+                        },
+                        {
+                            "type": "uri",
+                            "label": "View detail",
+                            "uri": "http://example.com/page/123"
+                        }
+                    ]
+                 )
+             )
+        )
 
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
